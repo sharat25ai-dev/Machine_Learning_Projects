@@ -83,7 +83,11 @@ Four classification models were trained and evaluated:
 - **☁️ Deployment Platform**: Fly.io
 - **🖥️ Application Type**: Binary classification web service
 - **🎥 Project Deployment Demo**: Includes demonstration video
+
+
       ![Project Deployment Video](./project_deployment_video.gif)
+
+
 
 ## 💡 Key Findings
 
@@ -92,6 +96,21 @@ Four classification models were trained and evaluated:
 - ✅ **Feature scaling** significantly improved linear model performance
 - ✅ The synthetic dataset effectively mimics **real-world data challenges**
 
+# FastAPI Prediction Service
+
+A machine learning prediction service built with FastAPI, UV, and Docker.
+
+## 🚀 Quick Start
+
+```bash
+# 1. Build Docker image
+docker build -t fitness-prediction .
+
+# 2. Run container
+docker run -it --rm -p 9696:9696 fitness-prediction
+
+# 3. In a new terminal, test the service on the link: http://localhost:9696/docs
+The endpoint is predict
 
 ## 🎯 Usage
 
