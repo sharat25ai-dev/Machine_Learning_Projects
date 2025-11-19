@@ -112,6 +112,7 @@ docker run -it --rm -p 9696:9696 fitness-prediction
 
 # 3. In a new terminal, test the service on the link: http://localhost:9696/docs
 The endpoint is predict
+```
 
 ## 🎯 Usage
 
