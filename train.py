@@ -20,10 +20,10 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score
 
 
-
 print(f'pandas=={pd.__version__}')
 print(f'numpy=={np.__version__}')
 print(f'sklearn=={sklearn.__version__}')
+
 
 def load_data():
     path = 'dataset/fitness_dataset.csv'
@@ -95,17 +95,14 @@ def train_model(df):
         model__max_iter=1000
     )
 
-    #print(pipe.get_params(deep=False))
     pipe.fit(X_train, y_train)
 
-    #print(f"FINAL MODEL TEST-SET ROC AUC: {val_score:.4f}")
-
     return pipe
+
 
 def save_model(pipeline, output_file):
     with open(output_file, 'wb') as f_out:
         pickle.dump(pipeline, f_out)
-
 
 
 df = load_data()
