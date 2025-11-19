@@ -86,8 +86,7 @@ Four classification models were trained and evaluated:
 
 
 
-      ![Project Deployment Video](./project_deployment_video.gif)
-
+![Project Deployment Video](./project_deployment_video.gif)
 
 
 
