@@ -82,7 +82,8 @@ Four classification models were trained and evaluated:
 - **🎯 Final Model**: Logistic Regression trained on full training dataset
 - **☁️ Deployment Platform**: Fly.io
 - **🖥️ Application Type**: Binary classification web service
-- **🎥 Documentation**: Includes demonstration video
+- **🎥 Project Deployment Demo**: Includes demonstration video
+      ![Project Deployment Video](./project_deployment_video.gif)
 
 ## 💡 Key Findings
 
