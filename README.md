@@ -1,87 +1,105 @@
-# Fitness Prediction - Binary Classification
-📘 Dataset Description
+# 🏋️ Fitness Classification Project
 
-This synthetic dataset simulates a real-world fitness classification problem where the objective is to predict fitness status using lifestyle and health features. The data contains noise, inconsistencies, outliers, and missing values to reflect actual industry datasets.
+## 📋 Problem Description
 
-It is particularly useful for learners practicing preprocessing, feature engineering, and classification model building.
+This project addresses a **Binary classification problem** using a synthetic dataset that simulates real-world fitness assessment. 
+The goal is to predict whether a person is **fit** (`is_fit = 1`) or **not fit** (`is_fit = 0`) based on various health and lifestyle features.
 
-🧬 Column Descriptions
-Column Name	Description
-age	Age of the individual in years
-height_cm	Height in centimeters
-weight_kg	Weight in kilograms (contains outliers)
-heart_rate	Resting heart rate (bpm)
-blood_pressure	Systolic blood pressure (mmHg)
-sleep_hours	Average sleep duration (contains missing values)
-nutrition_quality	Nutrition quality score (0–10)
-activity_index	Physical activity score (1–5)
-smokes	Smoking status (mixed numeric + string categories)
-gender	‘M’ or ‘F’
-is_fit	Target variable (1 = fit, 0 = not fit)
-📊 Dataset Statistics
+### 📊 Dataset Overview
+- **📈 Samples**: 2,000 individuals
+- **🎯 Features**: 10 predictive features + 1 target variable
+- **⚖️ Target Distribution**: ~60% not fit (0), ~40% fit (1)
+- **🚨 Data Challenges**: 
+  - 🔀 Mixed data types (numerical and categorical)
+  - ❓ Missing values (~8% in sleep_hours)
+  - 🔠 Inconsistent formatting (mixed numeric/string values)
+  - 📊 Outliers present in weight_kg (~2% of samples)
+  - 🔗 Complex feature relationships with target
 
-Total samples: 2000
+### 🗂️ Features
+| Feature | Description | Type |
+|---------|-------------|------|
+| `age` | Age in years | Integer |
+| `height_cm` | Height in centimeters | Integer |
+| `weight_kg` | Weight in kilograms (contains outliers) | Integer |
+| `heart_rate` | Resting heart rate in BPM | Float |
+| `blood_pressure` | Systolic blood pressure in mmHg | Float |
+| `sleep_hours` | Average daily sleep hours (contains NaNs) | Float |
+| `nutrition_quality` | Daily nutrition score 0-10 | Float |
+| `activity_index` | Physical activity level 1-5 | Float |
+| `smokes` | Smoking status (mixed types) | Mixed |
+| `gender` | Gender ('M' or 'F') | String |
+| `is_fit` | **Target variable** (1=fit, 0=not fit) | Binary |
 
-Features: 10 (9 inputs + 1 target)
+## 🔧 Methodology
 
-Class balance: ~60% Not Fit, ~40% Fit
+### 🧹 Data Preprocessing
 
-Missing values: ~8% in sleep_hours
+1. **🔄 Handled Mixed Data Types**:
+   - ✅ Converted 'smokes' column to consistent binary format (0/1)
+   - ✅ Created 'is_male' feature from gender column (0/1 encoding)
 
-Outliers: Present in weight_kg
+2. **🎯 Missing Value Treatment**:
+   - ✅ Imputed missing 'sleep_hours' values with median from training set to avoid Data Leakage
 
-Data types: Mixed (int, float, string)
+3. **📏 Feature Scaling**:
+   - ✅ Standardized numerical features for logistic regression model, Tree based models do not require scaling - hence used a copy of same dataset.
 
-Noise: Added for realism
+4. **🔍 Exploratory Data Analysis**:
+   - ✅ Generated histograms and boxplots to understand data distribution
+   - ✅ Analyzed feature relationships and outlier patterns
 
-🧠 What I Did in This Project
+### 🤖 Model Development
 
-To prepare the dataset and build the final model, I performed the following steps:
+Four classification models were trained and evaluated:
 
-✅ 1. Handle Mixed Data Types
+| Model | Type | Purpose |
+|-------|------|---------|
+| **Logistic Regression** | Linear | Baseline performance |
+| **Random Forest** | Ensemble | Handle non-linearity |
+| **XGBoost** | Gradient Boosting | State-of-art performance |
+| **Decision Tree** | Tree-based | Interpretability |
 
-Converted mixed smokes values (0, 1, "yes", "no") into consistent binary encoding (0 = non-smoker, 1 = smoker).
+## 📊 Model Performance
 
-✅ 2. Encode Categorical Variables
+### 🏆 Validation ROC-AUC Scores
 
-Converted gender into numerical form using a custom encoding:
+| Model | 🥇 ROC-AUC Score | Rank | Status |
+|-------|-----------------|------|---------|
+| **Logistic Regression** | **0.8566** | 1 | 🥇 **Best Model** |
+| Random Forest | 0.8417 | 2 | 🥈 |
+| XGBoost | 0.8400 | 3 | 🥉 |
+| Decision Tree | 0.7999 | 4 | |
 
-is_male = 1
+### ⚙️ Hyperparameter Tuning
+- 🔧 Performed hyperparameter optimization on training set
+- 📋 Validated performance on separate validation set
+- 🎯 Logistic Regression demonstrated superior performance
 
-is_male = 0
+## 🚀 Deployment
 
-✅ 3. Handle Missing Values
+### 🌐 Production Setup
+- **🎯 Final Model**: Logistic Regression trained on full training dataset
+- **☁️ Deployment Platform**: Fly.io
+- **🖥️ Application Type**: Binary classification web service
+- **🎥 Documentation**: Includes demonstration video
 
-Imputed missing values in sleep_hours using the median, which is robust to outliers.
+## 💡 Key Findings
 
-✅ 4. Scaling
-
-Standardized all numerical features using StandardScaler inside a pipeline (important for logistic regression and distance-based models).
-
-✅ 5. Model Training and Evaluation
-
-Trained multiple models using tuned hyperparameters and evaluated them using Validation ROC-AUC:
-
-Model	Validation ROC-AUC	Rank
-Logistic Regression	0.8566	🥇 (1)
-Random Forest	0.8417	🥈 (2)
-XGBoost	0.8400	🥉 (3)
-Decision Tree	0.7999	4
-✅ 6. Final Model
-
-Selected Logistic Regression as the final model
-
-Trained using tuned hyperparameters
-
-Good performance + explainability + stability
-
-📄 License
-
-This dataset is released under CC0 Public Domain — free for use in education, research, and development.
-
-🙌 Acknowledgments
-
-This is a synthetic dataset created for safe educational use.
-It does not include any real personal information and is intended for learning data science, machine learning, and preprocessing techniques.
+- ✅ **Logistic regression achieved the best performance** despite dataset complexity
+- ✅ **Proper data preprocessing** was crucial for model success
+- ✅ **Feature scaling** significantly improved linear model performance
+- ✅ The synthetic dataset effectively mimics **real-world data challenges**
 
 
+## 🎯 Usage
+
+The deployed model can be used to predict fitness levels based on health and lifestyle parameters, making it suitable for:
+
+- 🏥 Health assessment applications
+- 💪 Wellness programs
+---
+
+> **Note**: This dataset is synthetic and intended for **educational purposes** to practice data cleaning, feature engineering, and classification modeling.
+
+**❤️  Deployed Video ☁️ Fly.io**
